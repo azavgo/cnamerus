@@ -1,2 +1,2 @@
 # cnamerus
-Complex numbers library
+Complex numbers Rust library
