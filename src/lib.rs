@@ -1,5 +1,5 @@
 use std::ops::{Add, Sub, Mul, Div}; 
-use std::fmt::{Display, Result}; 
+use std::fmt::{Display, Result, Formatter}; 
 
 //Requires the implementation of the complex numbers basic arithmetic 
 // c = u + i*v - can be presented as a struct or a tuple (u, v)
@@ -126,7 +126,7 @@ impl Div<Complex<i64>> for Complex<i64> {
 
 //Implementing display for complex numbers
 impl Display for Complex<f64> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         if self.v < 0.0 {
             write!(f, "{} - i * {}", self.u, (-1.0) * self.v)    
         } else {
@@ -136,7 +136,7 @@ impl Display for Complex<f64> {
 }
 
 impl Display for Complex<i64> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         if self.v < 0 {
             write!(f, "{} - i * {}", self.u, (-1) * self.v)    
         } else {
