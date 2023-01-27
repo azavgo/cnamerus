@@ -1,4 +1,5 @@
 use std::ops::{Add, Sub, Mul, Div}; 
+use std::fmt::{Display, Result}; 
 
 //Requires the implementation of the complex numbers basic arithmetic 
 // c = u + i*v - can be presented as a struct or a tuple (u, v)
@@ -123,10 +124,56 @@ impl Div<Complex<i64>> for Complex<i64> {
     }    
 }
 
+//Implementing display for complex numbers
+impl Display for Complex<f64> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result {
+        if self.v < 0.0 {
+            write!(f, "{} - i * {}", self.u, (-1.0) * self.v)    
+        } else {
+            write!(f, "{} + i * {}", self.u, self.v)
+        }
+    }
+}
+
+impl Display for Complex<i64> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result {
+        if self.v < 0 {
+            write!(f, "{} - i * {}", self.u, (-1) * self.v)    
+        } else {
+            write!(f, "{} + i * {}", self.u, self.v)
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_complex_f64_display_01() {
+        let c = Complex::new(1.0, -2.0);
+        assert_eq!(println!("{}", "1.0 - i * 2.0"), println!("{}", c));
+    }
+
+    #[test]
+    fn test_complex_f64_display_02() {
+        let c = Complex::new(-4.31, 1.40);
+        assert_eq!(println!("{}", "-4.31 + i * 1.40"), println!("{}", c));
+    }
+
+
+    #[test]
+    fn test_complex_i64_display_02() {
+        let c = Complex::new(8, -2);
+        assert_eq!(println!("{}", "8 - i * 2"), println!("{}", c));
+    }
+
+    #[test]
+    fn test_complex_i64_display_01() {
+        let c = Complex::new(3, 4);
+        assert_eq!(println!("{}", "3 + i * 4"), println!("{}", c));
+    }
+
 
     #[test]
     fn test_complex_i64_div_re_01() {
